@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fix.dao.DataDao">
+	<!--	addWis,delWis,updateWis,findOne -->
+	<insert id="addWis" parameterType="wisdom">
+		INSERT into wisdom VALUES (NULL,#{info},#{author})
+	</insert>
+	<delete id="delWis" parameterType="int">
+		delete from wisdom WHERE id=#{id}	
+	</delete>
+	<update id="updateWis" parameterType="wisdom">
+		update wisdom
+		set info=#{info}, author=#{author}
+		where id =#{id}	
+	</update>
+	<select id="findOne" resultType="wisdom">
+	SELECT * from wisdom where id =#{id}
+	</select>
+
+	<select id="countTotal" resultType="int">
+		select count(*) from wisdom
+	</select>
+	
+
+	<select id="finAll" resultType="wisdom">
+		select * from wisdom
+	</select>
+
+	<select id="likeQuery" resultType="wisdom">
+		SELECT *from wisdom
+		where info like '%${value}%'
+	</select>
+
+	<insert id="addList" parameterType="list">
+		INSERT into wisdom VALUES
+		<foreach item="wis" collection="list" separator=",">
+		 (NULL,#{wis.info},#{wis.author})
+	</foreach>
+	</insert>
+
+</mapper>

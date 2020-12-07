@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fix.dao.LazyLoadDao">
+	<resultMap type="User" id="MyUser">
+		<id property="userId" column="userId" />
+		<result property="nickName" column="nickName" />
+		<collection property="infoList" ofType="Plan">
+			<id property="planId" column="planId" />
+			<result property="userId" column="userId" />
+			<result property="title" column="title" />
+			<result property="motivation" column="motivation" />
+			<result property="endDays" column="endDays" />
+		</collection>
+
+	</resultMap>
+	<select id="getPlanByUser" resultMap="MyUser">
+		Select *
+		from users u
+		inner JOIN plans p on p.userId = u.userId
+		where
+		u.userId=#{userId}
+	</select>
+	<select id="" resultType="">
+	
+	
+	</select>
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fix.dao.DynamDao">
+	<!-- Dynamic SQL -->
+	<!-- multiple choose by hash map -->
+	<select id="dynamQuery" parameterType="hashmap"
+		resultType="wisdom">
+		select * from wisdom
+		<where>
+			<if test="id!=null">
+				id = #{id}
+			</if>
+			<if test="author!=null">
+				and author = #{author}
+			</if>
+		</where>
+	</select>
+
+
+	<!-- multiple choose by object error ome -->
+	<!-- <select id="dynamQuery" parameterType="wisdom" resultType="wisdom"> 
+		select * from wisdom <where> <if test="id!=0"> id = #{id} </if> <if test="author!=null"> 
+		and author = #{author} </if> </where> </select> -->
+	<!-- choose when -->
+	<!-- <select id="" resultType="wisdom"> </select> -->
+
+</mapper>
+<!-- 编写sql语句 探究已映射的 SQL 语句 -->

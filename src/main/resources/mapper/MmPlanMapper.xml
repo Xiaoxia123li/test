@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fix.dao.MmPlandao">
+<!-- planid title into plan-->
+<!-- 1-mul <collection>  plainitem piid pic into plainItem object-->
+<!-- uid uname uphone into users object -->	
+	<resultMap id="MyPlan" type="Plan">
+		<id property="pid" column="planId" />
+		<result property="ptitle" column="title" />
+		<!-- associate plan in planitem information 1 to many -->
+		<collection property="planItemList" ofType="PlanItem">
+			<id property="piid" column="id" /><!-- pk in table -->
+			<result property="clockTimeDate" column="clockTimeDate" />
+			<!-- plan information- user information mul-1 -->
+			<association property="users" javaType="User">
+				<id property="uid" column="userId" />
+				<result property="nickName" column="nickName" />
+				<result property="phoneNumber" column="phoneNumber" />
+			</association>
+		</collection>
+
+	</resultMap>
+
+
+	<select id="planList" resultMap="MyPlan">
+		SELECT u.userId uid, u.nickName uname,u.phoneNumber uphone,p.planId pid,p.title ptitle, pi.id piid, pi.clockTime pic
+		from  plans p
+		LEFT JOIN users u ON p.userId=u.userId
+		LEFT JOIN planitem pi on p.userId= pi.userId
+	</select>
+
+
+</mapper>
